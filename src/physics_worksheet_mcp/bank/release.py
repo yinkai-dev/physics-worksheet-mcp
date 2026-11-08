@@ -41,6 +41,11 @@ def verify_release(path):
         if answers.sha256!=a['package_sha256']: raise ServiceError('answer_binding_drift')
     counts={'question_count':len(store.questions),'document_count':len(store.documents),'required_asset_count':len(store.assets)}
     if any(m['components']['question_package'].get(k)!=v for k,v in counts.items()): raise ServiceError('release_count_drift')
+    qmeta=m['components']['question_package']
+    if qmeta.get('sums_sha256') and qmeta['sums_sha256']!=sha((path/'question-package/SHA256SUMS').read_bytes()): raise ServiceError('release_component_drift')
+    tmeta=m['components'].get('tags')
+    if tmeta and (tmeta.get('sha256')!=sha((path/'tags.json').read_bytes()) or tmeta.get('covered')!=len(tags)): raise ServiceError('release_component_drift')
+    if answers and (a.get('with_answer')!=sum(r['status']=='source' for r in answers.answers.values()) or a.get('missing')!=sum(r['status']=='missing' for r in answers.answers.values())): raise ServiceError('release_count_drift')
     return Release(path,m,store,tags,reviews,answers,sums)
 
 def import_legacy(provider_dir,tags,selections,answers,bank_id,out):

@@ -13,10 +13,12 @@ def canonical(value):
 def sha(data): return hashlib.sha256(data).hexdigest()
 def fingerprint(value): return sha(canonical(value))
 def read_json(path): return json.loads(Path(path).read_text(encoding="utf-8-sig"))
-def write_json(path, value):
+def write_json(path, value, mode=0o600):
     path=Path(path); path.parent.mkdir(parents=True,exist_ok=True)
     with tempfile.NamedTemporaryFile(dir=path.parent,delete=False) as f:
-        tmp=Path(f.name); f.write(canonical(value)+b"\n"); f.flush(); os.fsync(f.fileno())
+        tmp=Path(f.name)
+        if os.name=='posix': os.fchmod(f.fileno(),mode)
+        f.write(canonical(value)+b"\n"); f.flush(); os.fsync(f.fileno())
     os.replace(tmp,path)
 
 def identifier(value):

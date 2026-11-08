@@ -5,6 +5,7 @@ import shutil
 import tarfile
 import tempfile
 import time
+import os
 from .package import VerifiedQuestionStore
 from .tags import validate_rows
 from .answers import VerifiedAnswerPackage
@@ -20,6 +21,11 @@ class Release:
     reviews: dict
     answers: object
     sums_sha256: str
+
+def readable_tree(root):
+    if os.name=='posix':
+        for p in Path(root).rglob('*'): os.chmod(p,0o755 if p.is_dir() else 0o644)
+        os.chmod(root,0o755)
 
 def verify_release(path):
     path=Path(path); sums=verify_tree(path); m=read_json(path/'release.json')
@@ -85,7 +91,7 @@ def import_legacy(provider_dir,tags,selections,answers,bank_id,out):
         manifest['release_id']=rel; write_json(staging/'release.json',manifest); make_sums(staging)
         final=parent/rel
         if final.exists(): return verify_release(final)
-        staging.rename(final)
+        staging.rename(final); readable_tree(final)
     return verify_release(final)
 
 class BankRegistry:
@@ -99,13 +105,13 @@ class BankRegistry:
         obj=self.load(bank,release)
         with file_lock(self.root/'.admin.lock'):
             active=self.active(); generation=str(time.time_ns()); write_json(self.root/'pointers'/f'{generation}.json',active)
-            active[bank]={'release_id':release,'release_sums_sha256':obj.sums_sha256}; write_json(self.root/'active.json',active)
+            active[bank]={'release_id':release,'release_sums_sha256':obj.sums_sha256}; write_json(self.root/'active.json',active,0o644)
         return active
     def rollback(self,generation):
         with file_lock(self.root/'.admin.lock'):
             old=read_json(confined(self.root,f'pointers/{identifier(generation)}.json'))
             for bank,b in old.items(): self.load(bank,b['release_id'])
-            write_json(self.root/'pointers'/f'{time.time_ns()}.json',self.active()); write_json(self.root/'active.json',old)
+            write_json(self.root/'pointers'/f'{time.time_ns()}.json',self.active()); write_json(self.root/'active.json',old,0o644)
         return old
     def install(self,archive,expected_sha):
         archive=Path(archive)
@@ -121,5 +127,5 @@ class BankRegistry:
             roots=list(Path(work).glob('*/releases/*'))
             if len(roots)!=1: raise ServiceError('archive_layout_invalid')
             r=verify_release(roots[0]); target=self.root/r.manifest['bank_id']/'releases'/r.manifest['release_id']
-            if not target.exists(): target.parent.mkdir(parents=True,exist_ok=True); shutil.copytree(r.root,target)
+            if not target.exists(): target.parent.mkdir(parents=True,exist_ok=True); shutil.copytree(r.root,target); readable_tree(target)
             return verify_release(target)

@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "physics-worksheet-mcp"
+version = "0.1.0"
+description = "Source-bound physics worksheets over authenticated MCP"
+requires-python = ">=3.12"
+license = "AGPL-3.0-or-later"
+dependencies = [
+    "mcp>=2.3,<2.4",
+    "pymupdf>=1.26,<2",
+    "jsonschema>=4.23",
+    "numpy>=2.2",
+    "httpx>=0.28",
+    "Pillow>=11",
+    "uvicorn>=0.34",
+]
+
+[project.scripts]
+pwmcp = "physics_worksheet_mcp.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-asyncio>=1"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/physics_worksheet_mcp"]

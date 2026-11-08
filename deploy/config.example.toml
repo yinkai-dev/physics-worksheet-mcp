@@ -1,0 +1,12 @@
+banks = "private/banks"
+state = "private/runtime/state.sqlite3"
+jobs = "private/runtime/jobs"
+base_url = "http://127.0.0.1:8770"
+host = "127.0.0.1"
+port = 8770
+origins = ["http://127.0.0.1:8770"]
+download_ttl = 1800
+max_questions = 300
+per_user_limit = 3
+queue_limit = 20
+rate_limit = 60

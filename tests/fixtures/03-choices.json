@@ -1,0 +1,36 @@
+{
+  "schema_version": "1.0",
+  "document": {
+    "title": "合成物理练习：选择题",
+    "subtitle": "仅用于工程排版验收",
+    "include_answers": false
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "body": [
+        {
+          "type": "text",
+          "value": "关于惯性，下列说法正确的是（　）。"
+        }
+      ],
+      "choices": [
+        "A. 质量越大，惯性越大",
+        "B. 速度越大，惯性越大",
+        "C. 物体不受力时才有惯性",
+        "D. 物体静止时没有惯性"
+      ],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-选择题.md",
+        "page": null,
+        "chunk_id": "synthetic-选择题-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n关于惯性，下列说法正确的是（　）。\nA. 质量越大，惯性越大\nB. 速度越大，惯性越大\nC. 物体不受力时才有惯性\nD. 物体静止时没有惯性",
+        "content_sha256": "c016ae4b3d7a6d3c6a06279f30b94e49809faa3bde2611d09f8ba4d98c6129e7"
+      },
+      "review_status": "retrieved-complete"
+    }
+  ]
+}

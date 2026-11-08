@@ -1,0 +1,7 @@
+* text=auto eol=lf
+src/physics_worksheet_mcp/bank/package.py -text
+src/physics_worksheet_mcp/render/contract.py -text
+src/physics_worksheet_mcp/render/renderer.py -text
+src/physics_worksheet_mcp/render/safety.py -text
+src/physics_worksheet_mcp/render/adapters/compiler.py -text
+src/physics_worksheet_mcp/schemas/*.json -text

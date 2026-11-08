@@ -1,0 +1,68 @@
+{
+  "schema_version": "1.0",
+  "document": {
+    "title": "合成物理练习：单位",
+    "subtitle": "仅用于工程排版验收",
+    "include_answers": false
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "body": [
+        {
+          "type": "text",
+          "value": "请写出磁感应强度、电压和电流的国际单位，并核对表达式"
+        },
+        {
+          "type": "math",
+          "value": "E=BLv"
+        },
+        {
+          "type": "text",
+          "value": "的量纲。可用单位符号为"
+        },
+        {
+          "type": "math",
+          "value": "\\mathrm{T},\\ \\mathrm{V},\\ \\mathrm{A},\\ \\mathrm{m/s}"
+        },
+        {
+          "type": "text",
+          "value": "。"
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "text",
+            "value": "A. 电场强度："
+          },
+          {
+            "type": "math",
+            "value": "\\mathrm{N/C}"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "B. 加速度："
+          },
+          {
+            "type": "math",
+            "value": "\\mathrm{m\\,s^{-2}}"
+          }
+        ]
+      ],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-单位.md",
+        "page": null,
+        "chunk_id": "synthetic-单位-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n请写出磁感应强度、电压和电流的国际单位，并核对表达式E=BLv的量纲。可用单位符号为\\mathrm{T},\\ \\mathrm{V},\\ \\mathrm{A},\\ \\mathrm{m/s}。\nA. 电场强度：\\mathrm{N/C}\nB. 加速度：\\mathrm{m\\,s^{-2}}",
+        "content_sha256": "96828184ef788748eb59e152770aa0dde713842d5952fc238dbf9240239c5245"
+      },
+      "review_status": "retrieved-complete"
+    }
+  ]
+}

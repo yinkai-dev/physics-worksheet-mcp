@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0",
+  "document": {
+    "title": "中文物理排版综合验收（合成）",
+    "subtitle": "仅用于工程排版验收",
+    "include_answers": false
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "body": [
+        {
+          "type": "text",
+          "value": "一辆小车沿平直轨道做匀速直线运动。请说明小车所受合力的大小，并写出判断依据。"
+        }
+      ],
+      "choices": [],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-纯中文.md",
+        "page": null,
+        "chunk_id": "synthetic-纯中文-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n一辆小车沿平直轨道做匀速直线运动。请说明小车所受合力的大小，并写出判断依据。",
+        "content_sha256": "f3a0291851eb51b9ac62306adc8e7306e24f915d5c96effc7b28dd242e468cf6"
+      },
+      "review_status": "retrieved-complete"
+    },
+    {
+      "id": "q2",
+      "body": [
+        {
+          "type": "text",
+          "value": "已知物体初速度为"
+        },
+        {
+          "type": "math",
+          "value": "v_0"
+        },
+        {
+          "type": "text",
+          "value": "，末速度为"
+        },
+        {
+          "type": "math",
+          "value": "v_1"
+        },
+        {
+          "type": "text",
+          "value": "，运动时间为"
+        },
+        {
+          "type": "math",
+          "value": "\\Delta t"
+        },
+        {
+          "type": "text",
+          "value": "。利用公式"
+        },
+        {
+          "type": "math",
+          "value": "a=\\frac{v_1-v_0}{\\Delta t}"
+        },
+        {
+          "type": "text",
+          "value": "求加速度，再比较"
+        },
+        {
+          "type": "math",
+          "value": "v=\\sqrt{v_0^2+2as}"
+        },
+        {
+          "type": "text",
+          "value": "中各物理量的含义。"
+        }
+      ],
+      "choices": [],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-上下标与分式.md",
+        "page": null,
+        "chunk_id": "synthetic-上下标与分式-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n已知物体初速度为v_0，末速度为v_1，运动时间为\\Delta t。利用公式a=\\frac{v_1-v_0}{\\Delta t}求加速度，再比较v=\\sqrt{v_0^2+2as}中各物理量的含义。",
+        "content_sha256": "1b71a0a1e04c94e7d553f7b53afa88d5bffb4ad5a043740a116da828ecdaac62"
+      },
+      "review_status": "retrieved-complete"
+    },
+    {
+      "id": "q3",
+      "body": [
+        {
+          "type": "text",
+          "value": "关于惯性，下列说法正确的是（　）。"
+        }
+      ],
+      "choices": [
+        "A. 质量越大，惯性越大",
+        "B. 速度越大，惯性越大",
+        "C. 物体不受力时才有惯性",
+        "D. 物体静止时没有惯性"
+      ],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-选择题.md",
+        "page": null,
+        "chunk_id": "synthetic-选择题-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n关于惯性，下列说法正确的是（　）。\nA. 质量越大，惯性越大\nB. 速度越大，惯性越大\nC. 物体不受力时才有惯性\nD. 物体静止时没有惯性",
+        "content_sha256": "c016ae4b3d7a6d3c6a06279f30b94e49809faa3bde2611d09f8ba4d98c6129e7"
+      },
+      "review_status": "retrieved-complete"
+    },
+    {
+      "id": "q4",
+      "body": [
+        {
+          "type": "text",
+          "value": "质量为"
+        },
+        {
+          "type": "math",
+          "value": "m=2\\,\\mathrm{kg}"
+        },
+        {
+          "type": "text",
+          "value": "的物体从静止开始，在水平恒力作用下运动。已知加速度为"
+        },
+        {
+          "type": "math",
+          "value": "a=3\\,\\mathrm{m/s^2}"
+        },
+        {
+          "type": "text",
+          "value": "，不计阻力。\n（1）求恒力大小。\n（2）求运动两秒后的速度。"
+        }
+      ],
+      "choices": [],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-计算题.md",
+        "page": null,
+        "chunk_id": "synthetic-计算题-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n质量为m=2\\,\\mathrm{kg}的物体从静止开始，在水平恒力作用下运动。已知加速度为a=3\\,\\mathrm{m/s^2}，不计阻力。\n（1）求恒力大小。\n（2）求运动两秒后的速度。",
+        "content_sha256": "bbae253d83674fb16d968695de7536fbded53e057dd9f3229be94a33a3b7efb9"
+      },
+      "review_status": "retrieved-complete"
+    },
+    {
+      "id": "q5",
+      "body": [
+        {
+          "type": "text",
+          "value": "请写出磁感应强度、电压和电流的国际单位，并核对表达式"
+        },
+        {
+          "type": "math",
+          "value": "E=BLv"
+        },
+        {
+          "type": "text",
+          "value": "的量纲。可用单位符号为"
+        },
+        {
+          "type": "math",
+          "value": "\\mathrm{T},\\ \\mathrm{V},\\ \\mathrm{A},\\ \\mathrm{m/s}"
+        },
+        {
+          "type": "text",
+          "value": "。"
+        }
+      ],
+      "choices": [
+        [
+          {
+            "type": "text",
+            "value": "A. 电场强度："
+          },
+          {
+            "type": "math",
+            "value": "\\mathrm{N/C}"
+          }
+        ],
+        [
+          {
+            "type": "text",
+            "value": "B. 加速度："
+          },
+          {
+            "type": "math",
+            "value": "\\mathrm{m\\,s^{-2}}"
+          }
+        ]
+      ],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-单位.md",
+        "page": null,
+        "chunk_id": "synthetic-单位-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n请写出磁感应强度、电压和电流的国际单位，并核对表达式E=BLv的量纲。可用单位符号为\\mathrm{T},\\ \\mathrm{V},\\ \\mathrm{A},\\ \\mathrm{m/s}。\nA. 电场强度：\\mathrm{N/C}\nB. 加速度：\\mathrm{m\\,s^{-2}}",
+        "content_sha256": "96828184ef788748eb59e152770aa0dde713842d5952fc238dbf9240239c5245"
+      },
+      "review_status": "retrieved-complete"
+    },
+    {
+      "id": "q6",
+      "body": [
+        {
+          "type": "text",
+          "value": "一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n"
+        }
+      ],
+      "choices": [],
+      "points": null,
+      "source": {
+        "kb_name": "合成测试知识库",
+        "title": "synthetic-分页.md",
+        "page": null,
+        "chunk_id": "synthetic-分页-1",
+        "score": null,
+        "source_excerpt": "【合成测试，非真实试卷】\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n一列物体依次通过观察点，实验者记录位置和时间。请根据所给条件逐项说明分析步骤。\n",
+        "content_sha256": "c6e98ea26f841192f8b31eb1e03019a2845454094c79655d3a1da670d4fed3f7"
+      },
+      "review_status": "retrieved-complete"
+    }
+  ]
+}

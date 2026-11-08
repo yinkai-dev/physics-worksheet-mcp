@@ -1,0 +1,25 @@
+# Local handoff notes and private runtime material
+/规划提示词.md
+.local/
+.venv/
+__pycache__/
+*.py[cod]
+.env
+.env.*
+!.env.example
+*.[p]em
+*.key
+*.p12
+*.pfx
+
+# Private question banks, generated indexes, logs and outputs
+/data/
+/runtime/
+/private/
+/output/
+/logs/
+
+# Local planning documents: contain private paths, host details and bank names
+/实施方案.md
+/执行计划.md
+/夜间执行提示词.md

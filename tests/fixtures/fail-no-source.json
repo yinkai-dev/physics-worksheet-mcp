@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "document": {
+    "title": "合成物理练习：纯中文",
+    "subtitle": "仅用于工程排版验收",
+    "include_answers": false
+  },
+  "questions": [
+    {
+      "id": "q1",
+      "body": [
+        {
+          "type": "text",
+          "value": "一辆小车沿平直轨道做匀速直线运动。请说明小车所受合力的大小，并写出判断依据。"
+        }
+      ],
+      "choices": [],
+      "points": null,
+      "review_status": "retrieved-complete"
+    }
+  ]
+}

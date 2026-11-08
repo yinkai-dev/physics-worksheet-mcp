@@ -1,0 +1,8 @@
+[Unit]
+Description=Check Worksheet MCP TLS certificate lifetime
+After=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/opt/pwmcp/current/env/bin/python /opt/pwmcp/current/scripts/cert_check.py --config /etc/pwmcp/config.toml
+NoNewPrivileges=yes
+PrivateTmp=yes

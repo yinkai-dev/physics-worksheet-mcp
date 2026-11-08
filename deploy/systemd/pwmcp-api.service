@@ -1,0 +1,23 @@
+[Unit]
+Description=Physics Worksheet MCP API
+After=network.target
+
+[Service]
+User=pwmcp
+Group=pwmcp
+WorkingDirectory=/var/lib/pwmcp
+ExecStart=/opt/pwmcp/current/env/bin/pwmcp serve --config /etc/pwmcp/config.toml
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+ReadOnlyPaths=/srv/pwmcp
+ReadWritePaths=/var/lib/pwmcp
+MemoryMax=512M
+TasksMax=64
+
+[Install]
+WantedBy=multi-user.target

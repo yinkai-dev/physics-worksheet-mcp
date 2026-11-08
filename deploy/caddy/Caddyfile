@@ -1,0 +1,18 @@
+{$PWMCP_SITE} {
+    tls {
+        issuer acme {
+            dir {$PWMCP_ACME_CA}
+            profile shortlived
+        }
+    }
+    @service path /mcp /mcp/* /d/* /files/* /healthz /readyz
+    handle @service {
+        reverse_proxy 127.0.0.1:8770 {
+            flush_interval -1
+            header_down X-Accel-Buffering no
+        }
+    }
+    handle {
+        respond 404
+    }
+}

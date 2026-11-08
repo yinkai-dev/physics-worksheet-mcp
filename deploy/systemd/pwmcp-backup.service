@@ -1,0 +1,11 @@
+[Unit]
+Description=Back up Worksheet MCP SQLite state
+
+[Service]
+Type=oneshot
+User=root
+ExecStart=/opt/pwmcp/current/env/bin/python /opt/pwmcp/current/scripts/backup.py --config /etc/pwmcp/config.toml --out /var/backups/pwmcp
+NoNewPrivileges=yes
+ProtectSystem=strict
+ReadWritePaths=/var/backups/pwmcp /var/lib/pwmcp
+UMask=0077

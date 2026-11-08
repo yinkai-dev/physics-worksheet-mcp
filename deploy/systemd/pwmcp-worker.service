@@ -1,0 +1,28 @@
+[Unit]
+Description=Physics Worksheet MCP render worker
+After=network.target
+
+[Service]
+User=pwmcp
+Group=pwmcp
+WorkingDirectory=/var/lib/pwmcp
+ExecStart=/opt/pwmcp/current/env/bin/pwmcp worker --config /etc/pwmcp/config.toml
+Restart=on-failure
+RestartSec=3
+UMask=0077
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+PrivateTmp=yes
+PrivateNetwork=yes
+RestrictAddressFamilies=AF_UNIX
+ReadOnlyPaths=/srv/pwmcp
+ReadWritePaths=/var/lib/pwmcp
+MemoryMax=1G
+TasksMax=64
+CPUQuota=150%
+KillMode=control-group
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

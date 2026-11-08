@@ -1,3 +1,7 @@
+{
+    default_sni {$PWMCP_SITE}
+}
+
 {$PWMCP_SITE} {
     tls {
         issuer acme {

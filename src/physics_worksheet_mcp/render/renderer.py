@@ -99,7 +99,7 @@ def _inline_tex(block):
     rows = "".join(" & ".join(_block_tex(cell) for cell in row) + r" \\ \hline " for row in block["rows"])
     return (r"\par\begingroup\small\setlength{\tabcolsep}{3pt}\renewcommand{\arraystretch}{1.3}"
             + r"\begin{tabularx}{\linewidth}{|*{" + str(columns) + r"}{>{\centering\arraybackslash}X|}}\hline "
-            + rows + r"\end{tabularx}\par\endgroup")
+            + rows + r"\end{tabularx}\par\endgroup{}")
 
 
 def _block_tex(blocks, assets=None, asset_files=None):

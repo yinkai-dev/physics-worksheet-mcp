@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "physics-worksheet-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "Source-bound physics worksheets over authenticated MCP"
 requires-python = ">=3.12"
 license = "AGPL-3.0-or-later"

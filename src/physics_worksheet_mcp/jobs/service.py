@@ -36,7 +36,11 @@ class Jobs:
         data=json.loads(r['data']); result={'job_id':id,'status':r['status'],'stage':r['stage'],'selection':data['selection'],'poll_after_seconds':2}
         if r['result']: result.update(json.loads(r['result']))
         # Private binding details are safe as opaque hashes; server paths never escape.
-        if r['status']=='succeeded': result['files']=self.files.links(user,id)
+        if r['status']=='succeeded':
+            link_started=time.monotonic(); result['files']=self.files.links(user,id)
+            timings=result.setdefault('timings_ms',{})
+            timings['link_issue']=round((time.monotonic()-link_started)*1000,2)
+            timings['deliver']=round(timings.get('register',timings.get('deliver',0))+timings['link_issue'],2)
         return result
     async def wait(self,user,id,seconds=0,ctx=None):
         if type(seconds) not in (int,float) or not 0<=seconds<=45: raise ServiceError('invalid_filters')

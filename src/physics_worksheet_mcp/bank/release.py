@@ -10,6 +10,7 @@ from .package import VerifiedQuestionStore
 from .tags import validate_rows
 from .answers import VerifiedAnswerPackage
 from ..errors import ServiceError
+from .. import __version__
 from ..util import read_json,write_json,sha,make_sums,verify_tree,identifier,confined,file_lock,fingerprint
 
 @dataclass
@@ -69,7 +70,7 @@ def import_legacy(provider_dir,tags,selections,answers,bank_id,out):
               'created_at':time.time(),'previous_release_id':None,'components':{},
               'legacy':{'provider':provider.evidence(),'registry_sha256':provider.registry_sha256,'hashes':provider.manifest['hashes'],
                         'embedding_signature':provider.manifest['embedding_signature'],'raw_text_crosscheck':f'{matched}/{len(store.questions)}'},
-              'verified_with':{'tool':'pwmcp admin bank import-legacy','code_version':'0.1.0'}}
+              'verified_with':{'tool':'pwmcp admin bank import-legacy','code_version':__version__}}
     parent=Path(out)/bank_id/'releases'; parent.mkdir(parents=True,exist_ok=True)
     with tempfile.TemporaryDirectory(dir=parent,prefix='.import-') as tmp:
         staging=Path(tmp)/'release'; staging.mkdir()

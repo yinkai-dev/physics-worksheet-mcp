@@ -39,12 +39,15 @@ def run(config,id):
         if proof['answers']['banks_without_package']: notice+=' 部分题库没有原卷答案包，未生成其答案。'
         if proof['answers']['missing']: notice+=f" 原卷缺答 {proof['answers']['missing']} 题，未补写答案。"
         result={'answers':proof['answers'],'timings_ms':timings,'pdf_qa':qa,'notice':notice}
-        timings['deliver']=round((time.monotonic()-t)*1000,2); timings['total_worker']=round((time.monotonic()-start)*1000,2)
-        proof['files']=rendered; proof['timings_ms']=timings; proof['pdf_qa']=qa; write_json(out/'source-resolution.json',proof); write_json(out/'manifest.json',result)
         with db.transaction() as c:
             row=c.execute('SELECT status,cancel FROM jobs WHERE id=?',(id,)).fetchone()
             if row['status']!='running' or row['cancel']: return
             for f in rendered: c.execute('INSERT INTO files VALUES(?,?,?,?,?,?,?,?,?)',(f['id'],job['user_id'],id,f['kind'],f['path'],f['sha256'],f['pages'],f['bytes'],f['name']))
+            timings['register']=round((time.monotonic()-t)*1000,2)
+            timings['deliver']=timings['register']
+            timings['total_worker']=round((time.monotonic()-start)*1000,2)
+            proof['files']=rendered; proof['timings_ms']=timings; proof['pdf_qa']=qa
+            write_json(out/'source-resolution.json',proof); write_json(out/'manifest.json',result)
             c.execute('UPDATE jobs SET status="succeeded",stage="succeeded",result=?,updated=?,lease=NULL WHERE id=?',(canonical(result).decode(),time.time(),id))
     except Exception as exc:
         write_json(out/'failure.json',{'type':type(exc).__name__,'error':str(exc)})

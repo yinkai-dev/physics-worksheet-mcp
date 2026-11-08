@@ -24,6 +24,7 @@ from .review.service import review
 from .search.service import search
 from .storage import Database,new_id
 from .util import fingerprint,canonical,sha
+from . import __version__
 from urllib.parse import urlparse
 
 INSTRUCTIONS='''服务端从不可变题包读取题干、公式、题图、原卷答案；不要传入题文或自写答案。先 list_banks 再选题。
@@ -35,7 +36,7 @@ create_worksheet 可能返回 queued/running，用 get_job 轮询；断开等待
 
 def build_app(config):
     db=Database(config.state); registry=BankRegistry(config.banks); auth=Auth(db); files=FileService(db,config); jobs=Jobs(db,config,files)
-    mcp=MCPServer('Physics Worksheets',version='0.1.0',instructions=INSTRUCTIONS,website_url='https://github.com/yinkai-dev/physics-worksheet-mcp')
+    mcp=MCPServer('Physics Worksheets',version=__version__,instructions=INSTRUCTIONS,website_url='https://github.com/yinkai-dev/physics-worksheet-mcp')
     def catalog(): return Catalog(registry,principal.get().grants)
     def tool(readonly=False):
         def decorate(fn):
@@ -155,7 +156,7 @@ def build_app(config):
         '''校验 SHA 后重签本人已有 PDF 下载链接，不重新编译。'''
         return {'job_id':job_id,'files':files.links(principal.get().user_id,job_id,kinds)}
 
-    async def health(request): return JSONResponse({'status':'ok','version':'0.1.0'})
+    async def health(request): return JSONResponse({'status':'ok','version':__version__})
     async def ready(request):
         reasons=[]
         try:

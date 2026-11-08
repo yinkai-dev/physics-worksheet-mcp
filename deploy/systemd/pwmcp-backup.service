@@ -3,7 +3,8 @@ Description=Back up Worksheet MCP SQLite state
 
 [Service]
 Type=oneshot
-User=root
+User=pwmcp
+Group=pwmcp
 ExecStart=/opt/pwmcp/current/env/bin/python /opt/pwmcp/current/scripts/backup.py --config /etc/pwmcp/config.toml --out /var/backups/pwmcp
 NoNewPrivileges=yes
 ProtectSystem=strict

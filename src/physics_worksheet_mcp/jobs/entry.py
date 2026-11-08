@@ -3,7 +3,7 @@ import argparse
 import json
 from pathlib import Path
 import time
-import fitz
+import pymupdf as fitz
 from ..config import Config
 from ..storage import Database,new_id
 from ..bank.release import BankRegistry

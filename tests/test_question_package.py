@@ -6,7 +6,7 @@ import sys
 import tempfile
 import unittest
 
-import fitz
+import pymupdf as fitz
 
 
 ADAPTER = Path(__file__).resolve().parents[1] / "src/physics_worksheet_mcp/bank/package.py"

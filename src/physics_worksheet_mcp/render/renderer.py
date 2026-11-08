@@ -663,7 +663,7 @@ def _answer_tex(spec, asset_files):
 
 
 def _pdf_image_pixels(pdf, xref, source):
-    import fitz
+    import pymupdf as fitz
 
     pixmap = fitz.Pixmap(pdf, xref)
     kind, mask = pdf.xref_get_key(xref, "SMask")
@@ -686,7 +686,7 @@ def _pdf_image_pixels(pdf, xref, source):
 def inspect_pdf(path, spec, asset_metadata=None, *, answer_files=None):
     """Geometry/text QA cannot establish physics correctness or visual perfection."""
     try:
-        import fitz
+        import pymupdf as fitz
     except ImportError as exc:
         raise ContractError("pdf-qa-unavailable: PyMuPDF is required") from exc
     try:
@@ -784,7 +784,7 @@ def _stage_assets(spec, staging, asset_reader, *, answers_only=False):
     target.mkdir()
     files, metadata = {}, {}
     try:
-        import fitz
+        import pymupdf as fitz
     except ImportError as exc:
         raise ContractError("asset-qa-unavailable: PyMuPDF is required") from exc
     for asset in expected:

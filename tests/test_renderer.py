@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-import fitz
+import pymupdf as fitz
 from physics_worksheet_mcp.render.adapters.compiler import CompileResult
 from physics_worksheet_mcp.render.contract import validate_spec
 from physics_worksheet_mcp.render.renderer import (_choice_tex, _display_body,

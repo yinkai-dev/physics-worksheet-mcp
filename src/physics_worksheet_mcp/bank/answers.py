@@ -16,7 +16,7 @@ import re
 import sys
 import tempfile
 
-import fitz
+import pymupdf as fitz
 from jsonschema import Draft202012Validator
 
 from ..render.contract import ContractError, _answer_blocks, source_choice_labels

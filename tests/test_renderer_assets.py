@@ -3,7 +3,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-import fitz
+import pymupdf as fitz
 
 from physics_worksheet_mcp.render.contract import ContractError, validate_spec
 from physics_worksheet_mcp.render.renderer import _tex, render_exam

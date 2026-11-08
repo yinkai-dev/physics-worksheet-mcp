@@ -75,3 +75,11 @@ def test_origin_health_and_unauthorized_file(system):
         assert client.get('/files/nonexistent').status_code==401
         assert client.get('/files/nonexistent',headers={'Authorization':'Bearer '+system['other_token']}).status_code==404
         assert client.get('/d/nonexistent').status_code==404
+
+def test_declared_public_host_and_rate_limit(system):
+    config=system['config']; config.base_url='https://worksheet.example.org'; config.origins=('https://worksheet.example.org',); config.rate_limit=1
+    with TestClient(build_app(config)) as c:
+        headers={'Authorization':'Bearer '+system['token'],'Host':'worksheet.example.org'}
+        response=c.post('/mcp',headers=headers,json={})
+        assert response.status_code!=421
+        assert c.post('/mcp',headers=headers,json={}).status_code==429

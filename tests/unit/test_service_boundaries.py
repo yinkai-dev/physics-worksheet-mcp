@@ -89,6 +89,14 @@ def test_fake_embedding_interface(system):
     result=search(system['catalog'],'运动',embedder=FakeEmbedder())
     assert result['semantic']=='ok' and len(result['hits'])==1 and result['coverage']=='partial'
 
+def test_bound_persistent_index(system):
+    from physics_worksheet_mcp.search.index import build_index
+    index_root=system['tmp']/'index'; release=system['catalog'].releases['demo-bank']
+    metadata=build_index(release,index_root); assert metadata['question_count']==1 and metadata['embedding_tokens']==0
+    result=search(system['catalog'],'回旋加速器',index_root=index_root); assert len(result['hits'])==1
+    path=index_root/'demo-bank'/release.root.name/metadata['index_id']/'index.json'; meta=read_json(path); meta['release_sums_sha256']='0'*64; write_json(path,meta); make_sums(path.parent)
+    with pytest.raises(ServiceError,match='index-binding-drift'): search(system['catalog'],'回旋加速器',index_root=index_root)
+
 def test_complete_topic_review_and_duplicate_submit(system):
     db=system['db']; cat=system['catalog']; user=system['user']; first=review(db,user,cat,banks=['demo-bank'],topic='合成主题')
     with pytest.raises(ServiceError,match='review_page_mismatch'): review(db,user,cat,first['review_id'],decisions=[])

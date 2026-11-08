@@ -10,6 +10,7 @@ from PIL import Image
 from mcp.server import MCPServer
 from mcp.server.mcpserver import Context
 from mcp.types import CallToolResult,TextContent,ImageContent,ToolAnnotations
+from mcp.server.transport_security import TransportSecuritySettings
 from starlette.responses import JSONResponse,FileResponse
 from starlette.routing import Route
 from .auth.service import Auth,principal
@@ -23,6 +24,7 @@ from .review.service import review
 from .search.service import search
 from .storage import Database,new_id
 from .util import fingerprint,canonical,sha
+from urllib.parse import urlparse
 
 INSTRUCTIONS='''服务端从不可变题包读取题干、公式、题图、原卷答案；不要传入题文或自写答案。先 list_banks 再选题。
 标签 any 命中任一，all 包含全部且允许其他，exact 标签集合相同；“只包含”用 exact。
@@ -84,7 +86,7 @@ def build_app(config):
     @tool(True)
     async def search_questions(query:str,banks:list[str]|None=None,filters:dict|None=None,top_k:int=10)->CallToolResult:
         '''全文检索相关候选，永远 coverage=partial，不能称全部。语义接口首版未启用。'''
-        return search(catalog(),query,banks,filters,top_k)
+        return search(catalog(),query,banks,filters,top_k,index_root=config.index)
 
     @tool(True)
     async def get_question(ref:str,image_offset:int=0)->CallToolResult:
@@ -175,7 +177,10 @@ def build_app(config):
             return FileResponse(path,media_type='application/pdf',headers={'Content-Disposition':"attachment; filename*=UTF-8''"+quote(row['name']),
                  'Cache-Control':'no-store','X-Content-Type-Options':'nosniff','Referrer-Policy':'no-referrer','X-Content-SHA256':row['sha256']})
         except ServiceError: return JSONResponse({'code':'file_not_found'},status_code=404)
-    app=mcp.streamable_http_app(stateless_http=True,host=config.host)
+    host=urlparse(config.base_url).netloc
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=True,
+        allowed_hosts=list(dict.fromkeys([host,'127.0.0.1:*','localhost:*','[::1]:*'])),allowed_origins=list(config.origins))
+    app=mcp.streamable_http_app(stateless_http=True,host=config.host,transport_security=transport_security)
     app.router.routes[:0]=[Route('/healthz',health),Route('/readyz',ready),Route('/d/{token}',download),Route('/files/{id}',download)]
     return Security(app,auth,db,config)
 

@@ -7,6 +7,7 @@ class Config:
     banks: Path = Path('private/banks')
     state: Path = Path('private/runtime/state.sqlite3')
     jobs: Path = Path('private/runtime/jobs')
+    index: Path = Path('private/index')
     base_url: str = 'http://127.0.0.1:8770'
     host: str = '127.0.0.1'
     port: int = 8770
@@ -20,7 +21,7 @@ class Config:
     @classmethod
     def load(cls,path=None):
         data=tomllib.loads(Path(path).read_text(encoding='utf-8')) if path else {}
-        for key in ('banks','state','jobs'):
+        for key in ('banks','state','jobs','index'):
             if key in data: data[key]=Path(data[key]).expanduser().absolute()
         if 'origins' in data: data['origins']=tuple(data['origins'])
         return cls(**data)

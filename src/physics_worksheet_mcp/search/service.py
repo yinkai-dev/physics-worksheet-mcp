@@ -19,7 +19,7 @@ class FakeEmbedder:
             rows.append(row/max(float(np.linalg.norm(row)),1e-12))
         return np.array(rows)
 
-def search(catalog,query,banks=None,filters=None,top_k=10,embedder=None):
+def search(catalog,query,banks=None,filters=None,top_k=10,embedder=None,index_root=None):
     if not isinstance(query,str) or not query.strip() or len(query)>2000 or type(top_k) is not int or not 1<=top_k<=20: raise ServiceError('invalid_filters')
     rows=catalog.filter({**(filters or {}),'banks':catalog.banks(banks)})['questions']
     db=sqlite3.connect(':memory:'); db.execute("CREATE VIRTUAL TABLE fts USING fts5(ref UNINDEXED,text,tokenize='trigram')")
@@ -31,7 +31,18 @@ def search(catalog,query,banks=None,filters=None,top_k=10,embedder=None):
         lexical=[r['ref'] for r,t in zip(rows,texts) if query.casefold() in t.casefold()]
     else:
         lexical=[r[0] for r in db.execute('SELECT ref FROM fts WHERE text MATCH ? ORDER BY bm25(fts),ref LIMIT 50',('"'+query.replace('"','""')+'"',))]
-    db.close(); ranks={ref:1/(60+i) for i,ref in enumerate(lexical,1)}; semantic=[]
+    db.close()
+    if index_root is not None and len(query)>=3:
+        from .index import query_index
+        persisted=[]; complete=True
+        for bank in catalog.banks(banks):
+            eligible=[r['ref'] for r in rows if r['bank']==bank]
+            found=query_index(catalog.releases[bank],index_root,query,eligible)
+            if found is None: complete=False; break
+            persisted.extend(found)
+        # Per-bank ranked lists are fused deterministically; every hit remains partial.
+        if complete: lexical=list(dict.fromkeys(persisted))
+    ranks={ref:1/(60+i) for i,ref in enumerate(lexical,1)}; semantic=[]
     if embedder and rows:
         vectors=embedder.embed(texts); q=embedder.embed([query])[0]
         scores=vectors@q; semantic=[rows[int(i)]['ref'] for i in np.argsort(-scores,kind='stable')[:50]]

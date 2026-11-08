@@ -1,6 +1,7 @@
 banks = "private/banks"
 state = "private/runtime/state.sqlite3"
 jobs = "private/runtime/jobs"
+index = "private/index"
 base_url = "http://127.0.0.1:8770"
 host = "127.0.0.1"
 port = 8770

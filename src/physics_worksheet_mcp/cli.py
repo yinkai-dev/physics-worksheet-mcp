@@ -39,6 +39,7 @@ def main():
     ji=js.add_parser('inspect'); ji.add_argument('id')
     jg=js.add_parser('gc'); jg.add_argument('--dry-run',action='store_true',required=True)
     backup=sections.add_parser('backup'); backup.add_argument('--out',required=True)
+    index=sections.add_parser('index'); ix=index.add_subparsers(dest='action',required=True); ib=ix.add_parser('build'); ib.add_argument('--bank',required=True); ib.add_argument('--release')
     a=p.parse_args(); config_path=getattr(a,'runtime_config',None) or getattr(a,'admin_config',None) or a.config; config=Config.load(config_path)
     if a.command=='serve':
         import uvicorn
@@ -55,6 +56,9 @@ def main():
         elif a.action=='rollback': result=registry.rollback(a.to_generation)
         elif a.action=='install': result=registry.install(a.archive,a.sha256).manifest
         else: result={'active':registry.active(),'generations':sorted(p.stem for p in (config.banks/'pointers').glob('*.json'))}
+    elif a.section=='index':
+        from .search.index import build_index
+        result=build_index(registry.load(a.bank,a.release),config.index)
     else:
         db=Database(config.state); auth=Auth(db)
         if a.section=='user':

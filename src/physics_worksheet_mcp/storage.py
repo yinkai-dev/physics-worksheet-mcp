@@ -29,13 +29,19 @@ class Database:
         self.path=path; path.parent.mkdir(parents=True,exist_ok=True)
         with self.connect() as c: c.executescript(SCHEMA)
         if os.name=='posix': os.chmod(path,0o600)
-    def connect(self):
+    def _open(self):
         c=sqlite3.connect(self.path,timeout=30); c.row_factory=sqlite3.Row
         c.execute('PRAGMA journal_mode=WAL'); c.execute('PRAGMA busy_timeout=30000')
         return c
     @contextmanager
+    def connect(self):
+        c=self._open()
+        try:
+            with c: yield c
+        finally: c.close()
+    @contextmanager
     def transaction(self):
-        c=self.connect()
+        c=self._open()
         try:
             c.execute('BEGIN IMMEDIATE'); yield c; c.commit()
         except BaseException: c.rollback(); raise

@@ -9,7 +9,7 @@ ACTIVE=('queued','running')
 class Jobs:
     def __init__(self,db,config,files): self.db,self.config,self.files=db,config,files
     def submit(self,user,selection,title,answers,seed,request_id=None,based_on_job=None,query_ms=0):
-        if not isinstance(title,str) or not 1<=len(title.strip())<=200 or type(answers) is not bool: raise ServiceError('invalid_filters')
+        if not isinstance(title,str) or not 1<=len(title.strip())<=200 or any(ord(c)<32 or c in '/\\' for c in title) or type(answers) is not bool: raise ServiceError('invalid_filters')
         if not selection['questions']: return {'status':'empty','selection':selection,'notice':'按当前条件没有匹配题目，未生成 PDF。'}
         if len(selection['questions'])>self.config.max_questions: raise ServiceError('too_many_questions')
         if request_id is not None and (not isinstance(request_id,str) or not 1<=len(request_id)<=200): raise ServiceError('invalid_filters')

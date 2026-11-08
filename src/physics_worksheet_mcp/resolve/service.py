@@ -15,6 +15,7 @@ def resolve_selection(registry,selection,title,answers,out):
     for i,row in enumerate(selection['questions'],1):
         if set(row)-{'ref','bank','paper','original_number','question_type','choice_mode','topics','images','answer','question_sha256'}: raise ServiceError('model_content_forbidden')
         r,qid,current=catalog.get(row['ref']); q=r.store.questions[qid]; d=r.store.documents[q['document_id']]
+        if row.get('answer')!=current['answer']: raise ServiceError('model_content_forbidden')
         if fingerprint(q)!=row['question_sha256']: raise ServiceError('question_drift')
         identity=(d['source_document']['sha256'],q['original_question_number'])
         if identity in seen: raise ServiceError('duplicate_question')

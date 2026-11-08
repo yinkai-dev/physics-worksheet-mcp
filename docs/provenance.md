@@ -6,7 +6,7 @@ Source: author-owned worksheet extension, snapshot `826d2a4`. No source reposito
 |---|---|---|---|---|
 | `adapters/deeptutor/question_package.py` | `826d2a4` | `ba5aa8d0804906438a52ec713df3f8cf0a671f71193b6de0ded8fcbe188050fb` | `src/physics_worksheet_mcp/bank/package.py` | byte-identical |
 | `src/physics_latex_export/contract.py` | `826d2a4` | `214c2c1f0034949c08f1677c9811dcd507667af0a3339124566467256521e71e` | `src/physics_worksheet_mcp/render/contract.py` | byte-identical |
-| `src/physics_latex_export/renderer.py` | `826d2a4` | `3b9710737fbb962632f21f87a4b969e91764177c930796eee221064af6fd61ce` | `src/physics_worksheet_mcp/render/renderer.py` | byte-identical |
+| `src/physics_latex_export/renderer.py` | `826d2a4` | `3b9710737fbb962632f21f87a4b969e91764177c930796eee221064af6fd61ce` | `src/physics_worksheet_mcp/render/renderer.py` | Original rendering/QA logic; added compile and QA timing fields |
 | `src/physics_latex_export/safety.py` | `826d2a4` | `ca7a1526bf03cb3867ea26478ddf940d11890a15ec73c10ba7dc074689054060` | `src/physics_worksheet_mcp/render/safety.py` | byte-identical |
 | `src/physics_latex_export/adapters/compiler.py` | `826d2a4` | `59e577db671417973467df0d242c137a247d9df16cbdae5a979c5b347fe1aa65` | `src/physics_worksheet_mcp/render/adapters/compiler.py` | byte-identical |
 | `question-package.schema.json` | `826d2a4` | `976761fb70849ab31f3d176fe3f3e06dea4db5519bc2e31b28cc6557bde51b3b` | `src/physics_worksheet_mcp/schemas/question-package.schema.json` | byte-identical |

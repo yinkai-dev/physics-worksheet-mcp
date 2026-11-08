@@ -866,7 +866,9 @@ def render_exam(exam_spec, output_dir, *, compiler=None, asset_reader=None, answ
             tex_path = staging / "worksheet.tex"
             tex = _answer_tex(spec, asset_files) if answers_only else _tex(spec, asset_files)
             tex_path.write_text(tex, encoding="utf-8", newline="\n")
+            compile_started = time.monotonic()
             compiled = compiler.compile(tex_path, staging)
+            manifest["timings_ms"] = {"compile": round((time.monotonic() - compile_started) * 1000, 2)}
             result.compiler, result.compiler_version = compiled.compiler, compiled.compiler_version
             manifest["compiler"] = {"name": compiled.compiler, "version": compiled.compiler_version,
                                     "shell_escape": False, "network_policy": "enforced by deployment runner"}
@@ -886,9 +888,11 @@ def render_exam(exam_spec, output_dir, *, compiler=None, asset_reader=None, answ
                 raise ContractError("compiler-produced-no-pdf")
             if (staging / "worksheet.pdf").stat().st_size > 128 * 1024 * 1024:
                 raise ContractError("pdf-size-limit: 128 MiB exceeded")
+            qa_started = time.monotonic()
             try:
                 answer_files = {aid: staging / file for aid, file in asset_files.items()} if answers_only else None
                 manifest["pdf_qa"] = inspect_pdf(staging / "worksheet.pdf", spec, asset_metadata, answer_files=answer_files)
+                manifest["timings_ms"]["qa"] = round((time.monotonic() - qa_started) * 1000, 2)
             except ContractError as exc:
                 manifest["pdf_qa"] = {"passed": False, "error": str(exc)}
                 _write_new(out / rejected_name, (staging / "worksheet.pdf").read_bytes())

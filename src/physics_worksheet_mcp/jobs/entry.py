@@ -23,17 +23,17 @@ def run(config,id):
         timings['verify']=round((time.monotonic()-t)*1000,2)
         reader=DirectoryVerifiedAssetReader(out/'verified-assets.json')
         cpu=min(240,45*((len(spec['questions'])+79)//80)); compiler=XeLaTeXCompiler(cpu+10)
-        rendered=[]; qa={}; t=time.monotonic()
+        rendered=[]; qa={}; t=time.monotonic(); compile_ms=0; qa_ms=0
         for kind in ['worksheet']+(['answers'] if proof['answers']['with_source_answer'] else []):
             stage('render_'+kind)
             result=render_exam(spec,out/kind,compiler=compiler,asset_reader=reader,answers_only=kind=='answers')
             if result.status!='success': raise ValueError(result.error)
             path=Path(result.pdf_path); manifest=json.loads(Path(result.manifest_path).read_bytes()); qa[kind]=manifest['pdf_qa']
+            compile_ms+=manifest['timings_ms']['compile']; qa_ms+=manifest['timings_ms']['qa']
             with fitz.open(path) as pdf: pages=len(pdf)
             rendered.append({'id':new_id('file'),'kind':kind,'path':path.relative_to(config.jobs).as_posix(),'sha256':sha(path.read_bytes()),'pages':pages,'bytes':path.stat().st_size,
                              'name':data['title']+('—答案' if kind=='answers' else '')+'.pdf'})
-        timings['compile']=round((time.monotonic()-t)*1000,2); timings['qa']=0
-        # QA is executed synchronously inside render_exam; compile timing includes QA.
+        timings['render_total']=round((time.monotonic()-t)*1000,2); timings['compile']=compile_ms; timings['qa']=qa_ms
         stage('publish'); t=time.monotonic(); short=data['selection']['shortfall']; requested=data['selection']['requested_count']; actual=len(spec['questions'])
         notice=f'原要求 {requested} 道，实际 {actual} 道，差额 {short} 道。'
         if proof['answers']['banks_without_package']: notice+=' 部分题库没有原卷答案包，未生成其答案。'

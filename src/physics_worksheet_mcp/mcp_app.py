@@ -60,7 +60,7 @@ def build_app(config):
     async def list_banks(bank_id:str|None=None,include_papers:bool=False)->CallToolResult:
         '''列出令牌已授权的题库、题数、筛选和答案覆盖；可展开原卷。'''
         cat=catalog(); result=[]
-        for b in cat.banks([bank_id] if bank_id else None):
+        for b in (cat.banks([bank_id] if bank_id else None) if bank_id or cat.releases else []):
             r=cat.releases[b]; row={'bank_id':b,'name':r.manifest['bank_name'],'release_id':r.manifest['release_id'],**r.manifest['components'],
                                    'question_count':len(r.store.questions),'paper_count':len(r.store.documents),
                                    'filters':{'question_types':sorted({t['question_type'] for t in r.tags.values()}),'topics':sorted({v for t in r.tags.values() for v in t['topics']}),'topic_match':['any','all','exact'],'reviewed_selections':list(r.reviews)}}

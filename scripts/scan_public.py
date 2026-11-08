@@ -20,7 +20,7 @@ def scan(denylist):
         key = (label, data)
         if key in seen: return
         seen.add(key)
-        text = data.decode("utf-8", errors="replace")
+        text = label+'\n'+data.decode("utf-8", errors="replace")
         for i, pattern in enumerate(patterns, 1):
             if pattern.search(text): violations.append({"file": label, "rule": i})
     for name in git("ls-files", "-z").decode().split("\0"):
